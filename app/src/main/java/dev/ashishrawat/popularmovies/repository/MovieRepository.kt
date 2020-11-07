@@ -16,7 +16,6 @@ class MovieRepository {
 
     init {
         newsApi = ApiClient.buildService(MovieApi::class.java)
-
     }
 
     fun loadMovies(): MutableLiveData<MovieResponse?>? {

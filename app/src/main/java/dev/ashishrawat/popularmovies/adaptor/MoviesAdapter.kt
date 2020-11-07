@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import dev.ashishrawat.popularmovies.R
 import dev.ashishrawat.popularmovies.model.Movie
 
-class MoviesAdapter(val movies: List<Movie>) : RecyclerView.Adapter<MoviesViewHolder>() {
+class MoviesAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<MoviesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_view, parent, false)
         return MoviesViewHolder(view)

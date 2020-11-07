@@ -1,9 +1,12 @@
 package dev.ashishrawat.popularmovies.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
+@Entity
 class MovieResponse {
     @SerializedName("page")
     @Expose
@@ -24,6 +27,11 @@ class MovieResponse {
 
 
 class Movie {
+    @PrimaryKey(autoGenerate = true)
+    @SerializedName("id")
+    @Expose
+    var id: Int? = null
+
     @SerializedName("popularity")
     @Expose
     var popularity: Float? = null
@@ -39,10 +47,6 @@ class Movie {
     @SerializedName("poster_path")
     @Expose
     var posterPath: String? = null
-
-    @SerializedName("id")
-    @Expose
-    var id: Int? = null
 
     @SerializedName("adult")
     @Expose
