@@ -23,7 +23,7 @@ object ApiClient {
     }
 }
 
-interface ServicesApiInterface {
+interface MovieApi {
     @GET("movie/popular")
     fun popularMovies(@Query("api_key") key: String): Call<MovieResponse>
 }
