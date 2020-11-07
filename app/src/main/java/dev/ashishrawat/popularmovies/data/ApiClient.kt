@@ -9,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 object ApiClient {
-    private const val API_BASE_URL = "http://api.themoviedb.org/3/"
+    private const val API_BASE_URL = "https://api.themoviedb.org/3/"
     private val client = OkHttpClient.Builder().build()
 
     private val retrofit = Retrofit.Builder()

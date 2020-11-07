@@ -1,34 +1,82 @@
 package dev.ashishrawat.popularmovies.model
 
-import java.io.Serializable
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-data class MovieResponse(
-    val page: Long,
-    val totalResults: Long,
-    val totalPages: Long,
-    val movies: List<Movie>
-) : Serializable
 
-data class Movie(
-//    val popularity: Double,
-//    val voteCount: Long,
-//    val video: Boolean,
-//    val posterPath: String,
-//    val id: Long,
-//    val adult: Boolean,
-//    val backdropPath: String,
-//    val originalLanguage: String,
-//    val originalTitle: String,
-//    val genreIDS: List<Long>,
-//    val title: String,
-//    val voteAverage: Double,
-//    val overview: String,
-//    val releaseDate: String
-    val id: Int, val overview: String,
-    val poster_path: String,
-    val release_date: String,
-    val title: String,
-    val vote_average: Double,
-    val vote_count: Int
-) : Serializable
+class MovieResponse {
+    @SerializedName("page")
+    @Expose
+    var page: Int? = null
 
+    @SerializedName("total_results")
+    @Expose
+    var totalResults: Int? = null
+
+    @SerializedName("total_pages")
+    @Expose
+    var totalPages: Int? = null
+
+    @SerializedName("results")
+    @Expose
+    var results: List<Movie>? = null
+}
+
+
+class Movie {
+    @SerializedName("popularity")
+    @Expose
+    var popularity: Float? = null
+
+    @SerializedName("vote_count")
+    @Expose
+    var voteCount: Int? = null
+
+    @SerializedName("video")
+    @Expose
+    var video: Boolean? = null
+
+    @SerializedName("poster_path")
+    @Expose
+    var posterPath: String? = null
+
+    @SerializedName("id")
+    @Expose
+    var id: Int? = null
+
+    @SerializedName("adult")
+    @Expose
+    var adult: Boolean? = null
+
+    @SerializedName("backdrop_path")
+    @Expose
+    var backdropPath: String? = null
+
+    @SerializedName("original_language")
+    @Expose
+    var originalLanguage: String? = null
+
+    @SerializedName("original_title")
+    @Expose
+    var originalTitle: String? = null
+
+    @SerializedName("genre_ids")
+    @Expose
+    var genreIds: List<Int>? = null
+
+    @SerializedName("title")
+    @Expose
+    var title: String? = null
+
+    @SerializedName("vote_average")
+    @Expose
+    var voteAverage: Float? = null
+
+    @SerializedName("overview")
+    @Expose
+    var overview: String? = null
+
+    @SerializedName("release_date")
+    @Expose
+    var releaseDate: String? = null
+}
