@@ -32,7 +32,7 @@ class MovieRepository {
                 }
 
                 override fun onFailure(call: Call<MovieResponse?>?, t: Throwable?) {
-                    newsData.value = null
+//                    newsData.value = null
                 }
             })
         return newsData
