@@ -43,9 +43,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpWorkManager() {
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(false)
+            .build()
         //Register work manager
         val request = PeriodicWorkRequest
             .Builder(PopularMovieWorker::class.java, 1, TimeUnit.SECONDS)
+            .setConstraints(constraints)
             .build()
         WorkManager.getInstance(this).enqueue(request)
     }

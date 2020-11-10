@@ -25,5 +25,5 @@ object ApiClient {
 
 interface MovieApi {
     @GET("movie/popular")
-    fun popularMovies(@Query("api_key") key: String): Call<MovieResponse>
+    fun popularMovies(@Query("api_key") key: String, @Query("page") page: Int): Call<MovieResponse>
 }

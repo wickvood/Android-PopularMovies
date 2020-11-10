@@ -11,8 +11,11 @@ class MovieViewModel() : ViewModel() {
 
     var movieRepository: MovieRepository = MovieRepository();
     fun loadMovies(): MutableLiveData<MovieResponse?>? {
-        return movieRepository.loadMovies();
+        return movieRepository.loadMovies(1);
+    }
 
+    fun loadNextMovies(pageNumber: Int): MutableLiveData<MovieResponse?>? {
+        return movieRepository.loadMovies(pageNumber);
     }
 
 }

@@ -18,9 +18,12 @@ class MovieRepository {
         newsApi = ApiClient.buildService(MovieApi::class.java)
     }
 
-    fun loadMovies(): MutableLiveData<MovieResponse?>? {
-        val newsData: MutableLiveData<MovieResponse?> = MutableLiveData<MovieResponse?>()
-        newsApi?.popularMovies(MainApplication.applicationContext().resources.getString(R.string.api_key))
+    fun loadMovies(pageNumber: Int): MutableLiveData<MovieResponse?>? {
+        val newsData = MutableLiveData<MovieResponse?>()
+        newsApi?.popularMovies(
+            MainApplication.applicationContext().resources.getString(R.string.api_key),
+            pageNumber
+        )
             ?.enqueue(object : Callback<MovieResponse?> {
                 override fun onResponse(
                     call: Call<MovieResponse?>?,
@@ -37,5 +40,6 @@ class MovieRepository {
             })
         return newsData
     }
+
 
 }
