@@ -46,13 +46,13 @@
                     android:layout_below="@+id/movie_photo"
                     android:layout_margin="5dp"
                     android:layout_marginTop="4dp"
-                    android:text="@{`Title : ` + movie.title}"
+                    android:text="@{@string/title+` : ` + movie.title}"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.035"
                     app:layout_constraintStart_toStartOf="@+id/movie_photo"
                     app:layout_constraintTop_toBottomOf="@+id/movie_photo"
-                    tools:text="Title" />
+                    tools:text="@string/title" />
 
                 <TextView
                     android:id="@+id/movie_overview"
@@ -66,7 +66,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/movie_title"
                     app:layout_constraintTop_toBottomOf="@+id/movie_title"
-                    tools:text="OverView" />
+                    tools:text="@string/overview" />
 
                 <TextView
                     android:id="@+id/movie_rating"
@@ -74,13 +74,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/movie_overview"
                     android:layout_marginTop="8dp"
-                    android:text="@{`Rating : `+movie.voteAverage.toString()}"
+                    android:text="@{@string/rating+` : `+movie.voteAverage.toString()}"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="@+id/movie_overview"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/movie_overview"
                     app:layout_constraintTop_toBottomOf="@+id/movie_overview"
-                    tools:text="Rating" />
+                    tools:text="@string/rating" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

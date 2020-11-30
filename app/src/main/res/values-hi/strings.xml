@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="true">लोकप्रिय फिल्में</string>
+    <string name="title">शीर्षक</string>
+    <string name="rating">रेटिंग्स</string>
+    <string name="overview">अवलोकन</string>
+
+</resources>
