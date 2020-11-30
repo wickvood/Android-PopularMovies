@@ -1,19 +1,20 @@
 package dev.ashishrawat.popularmovies.adaptor
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import dev.ashishrawat.popularmovies.R
+import dev.ashishrawat.popularmovies.databinding.MovieViewBinding
 import dev.ashishrawat.popularmovies.model.Movie
+
 
 class MoviesAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<MoviesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_view, parent, false)
-        return MoviesViewHolder(view)
+
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val itemBinding: MovieViewBinding =
+            MovieViewBinding.inflate(layoutInflater, parent, false)
+        return MoviesViewHolder(itemBinding)
     }
 
     override fun getItemCount(): Int {
@@ -25,18 +26,12 @@ class MoviesAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<Movi
     }
 }
 
-class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val photo: ImageView = itemView.findViewById(R.id.movie_photo)
-    private val title: TextView = itemView.findViewById(R.id.movie_title)
-    private val overview: TextView = itemView.findViewById(R.id.movie_overview)
-    private val rating: TextView = itemView.findViewById(R.id.movie_rating)
+class MoviesViewHolder(private val binding: MovieViewBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movie: Movie) {
+        binding.movie = movie
         Glide.with(itemView.context).load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
-            .into(photo)
-        title.text = "Title: " + movie.title
-        overview.text = movie.overview
-        rating.text = "Rating : " + movie.voteAverage.toString()
+            .into(binding.moviePhoto)
     }
-
 }

@@ -1,56 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.cardview.widget.CardView
+    <data>
+
+        <variable
+            name="movie"
+            type="dev.ashishrawat.popularmovies.model.Movie" />
+    </data>
+
+    <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/movie_photo"
-                android:contentDescription="Movie Image" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_below="@+id/movie_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:id="@+id/movie_title"
-                android:layout_margin="5dp"
-                android:textSize="15sp"
-                android:text="Title : "/>
+                <ImageView
+                    android:id="@+id/movie_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="Movie Image" />
 
-            <TextView
-                android:layout_below="@+id/movie_title"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:ellipsize="marquee"
-                android:id="@+id/movie_overview"
-                android:layout_margin="5dp"
-                android:text="OverView : "/>
+                <TextView
+                    android:id="@+id/movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/movie_photo"
+                    android:layout_margin="5dp"
+                    android:text="@{`Title : ` + movie.title}"
+                    android:textSize="15sp" />
 
-            <TextView
-                android:layout_below="@+id/movie_overview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/movie_rating"
-                android:textSize="15sp"
-                android:layout_margin="5dp"
-                android:text="Rating : "/>
+                <TextView
+                    android:id="@+id/movie_overview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/movie_title"
+                    android:layout_margin="5dp"
+                    android:ellipsize="marquee"
+                    android:text="@{movie.overview}" />
+
+                <TextView
+                    android:id="@+id/movie_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/movie_overview"
+                    android:layout_margin="5dp"
+                    android:text="@{`Rating : `+movie.voteAverage.toString()}"
+                    android:textSize="15sp" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

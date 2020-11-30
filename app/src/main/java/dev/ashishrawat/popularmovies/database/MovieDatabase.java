@@ -13,13 +13,13 @@ public abstract class MovieDatabase extends RoomDatabase {
 
     public abstract MovieDao getNoteDao();
 
-    private static MovieDatabase noteDB;
+    private static MovieDatabase movieDb;
 
     public static MovieDatabase getInstance(Context context) {
-        if (null == noteDB) {
-            noteDB = buildDatabaseInstance(context);
+        if (null == movieDb) {
+            movieDb = buildDatabaseInstance(context);
         }
-        return noteDB;
+        return movieDb;
     }
 
     private static MovieDatabase buildDatabaseInstance(Context context) {
@@ -30,7 +30,7 @@ public abstract class MovieDatabase extends RoomDatabase {
     }
 
     public void cleanUp() {
-        noteDB = null;
+        movieDb = null;
     }
 
 }

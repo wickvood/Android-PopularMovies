@@ -14,19 +14,15 @@ class PopularMovieWorker(appContext: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
 
         // Do the work here--in this case, upload the images.
-        fetchMovie()
+        return fetchMovie()
 
-        // Indicate whether the work finished successfully with the Result
-        return Result.success()
     }
 
     private fun fetchMovie(): Result {
         Result
         val movieRepository = MovieRepository()
 
-        val movieResponse = movieRepository.loadMovies(1);
-
-        val movie = movieResponse?.value?.results?.get(0);
+        val movie = movieRepository.loadTopMovie();
 
         if (movie != null) {
 
