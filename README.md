@@ -5,7 +5,7 @@
 - [X] Movie api integration
 - [X] Api integration with live data and view model
 - [X] Data binding in movie screen and RecyclerView Adaptor
-- [ ] Building UI with ConstraintLayout
+- [X] Building UI with ConstraintLayout
 - [ ] Localization in English and Hindi
 - [ ] Implement Paging library for pagination
 - [ ] Offline Movie Data with Room
