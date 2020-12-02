@@ -6,7 +6,6 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-@Entity
 class MovieResponse {
     @SerializedName("page")
     @Expose
@@ -23,9 +22,15 @@ class MovieResponse {
     @SerializedName("results")
     @Expose
     var results: List<Movie>? = null
+
+    override fun toString(): String {
+        return "MovieResponse(page=$page, totalResults=$totalResults, totalPages=$totalPages, results=$results)"
+    }
+
+
 }
 
-
+@Entity
 class Movie {
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
@@ -83,4 +88,9 @@ class Movie {
     @SerializedName("release_date")
     @Expose
     var releaseDate: String? = null
+
+    override fun toString(): String {
+        return "Movie(id=$id, popularity=$popularity, voteCount=$voteCount, video=$video, posterPath=$posterPath, adult=$adult, backdropPath=$backdropPath, originalLanguage=$originalLanguage, originalTitle=$originalTitle, genreIds=$genreIds, title=$title, voteAverage=$voteAverage, overview=$overview, releaseDate=$releaseDate)"
+    }
+
 }

@@ -1,28 +1,34 @@
 package dev.ashishrawat.popularmovies.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import dev.ashishrawat.popularmovies.MainApplication
 import dev.ashishrawat.popularmovies.R
 import dev.ashishrawat.popularmovies.data.ApiClient
-import dev.ashishrawat.popularmovies.data.MovieApi
+import dev.ashishrawat.popularmovies.data.MovieApiService
 import dev.ashishrawat.popularmovies.model.Movie
 import dev.ashishrawat.popularmovies.model.MovieResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+private const val STARTING_PAGE_INDEX = 0
+
 
 class MovieRepository {
-    private var newsApi: MovieApi? = null
+    private var lastRequestedPage = STARTING_PAGE_INDEX
+
+    private var movieApiService: MovieApiService? = null
 
     init {
-        newsApi = ApiClient.buildService(MovieApi::class.java)
+        movieApiService = ApiClient.buildService(MovieApiService::class.java)
     }
 
+    var movieList: MutableList<Movie>? = null;
 
     fun loadTopMovie(): Movie? {
         var movie: Movie? = null;
-        newsApi?.popularMovies(
+        movieApiService?.popularMovies(
             MainApplication.applicationContext().resources.getString(R.string.api_key),
             1
         )
@@ -43,11 +49,12 @@ class MovieRepository {
         return movie
     }
 
-    fun loadMovies(pageNumber: Int): MutableLiveData<MovieResponse?>? {
+    fun loadMovies(): MutableLiveData<MovieResponse?>? {
+        lastRequestedPage++;
         val newsData = MutableLiveData<MovieResponse?>()
-        newsApi?.popularMovies(
+        movieApiService?.popularMovies(
             MainApplication.applicationContext().resources.getString(R.string.api_key),
-            pageNumber
+            lastRequestedPage
         )
             ?.enqueue(object : Callback<MovieResponse?> {
                 override fun onResponse(
@@ -55,12 +62,16 @@ class MovieRepository {
                     response: Response<MovieResponse?>
                 ) {
                     if (response.isSuccessful) {
-                        newsData.value = response.body()
+                        movieList = ArrayList()
+                        response.body()?.results?.let { movieList?.addAll(it) }
+                        val movieResponse: MovieResponse? = response.body();
+                        movieResponse?.results = movieList;
+                        newsData.postValue(movieResponse)
                     }
                 }
 
                 override fun onFailure(call: Call<MovieResponse?>?, t: Throwable?) {
-//                    newsData.value = null
+                    Log.e("Respository ", t.toString());
                 }
             })
         return newsData

@@ -1,12 +1,8 @@
 package dev.ashishrawat.popularmovies.data
 
-import dev.ashishrawat.popularmovies.model.MovieResponse
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
 
 object ApiClient {
     private const val API_BASE_URL = "https://api.themoviedb.org/3/"
@@ -23,7 +19,3 @@ object ApiClient {
     }
 }
 
-interface MovieApi {
-    @GET("movie/popular")
-    fun popularMovies(@Query("api_key") key: String, @Query("page") page: Int): Call<MovieResponse>
-}

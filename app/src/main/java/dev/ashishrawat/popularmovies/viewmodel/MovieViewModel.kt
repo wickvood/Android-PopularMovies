@@ -1,21 +1,44 @@
 package dev.ashishrawat.popularmovies.viewmodel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dev.ashishrawat.popularmovies.model.MovieResponse
 import dev.ashishrawat.popularmovies.repository.MovieRepository
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 
 class MovieViewModel() : ViewModel() {
-
-
+    private var data: MutableLiveData<MovieResponse?>? = null
     var movieRepository: MovieRepository = MovieRepository();
-    fun loadMovies(): MutableLiveData<MovieResponse?>? {
-        return movieRepository.loadMovies(1);
+
+    init {
+        Log.e("ViewModelInit ", "Loading ViewModel Init");
+        loadMovies()
     }
 
-    fun loadNextMovies(pageNumber: Int): MutableLiveData<MovieResponse?>? {
-        return movieRepository.loadMovies(pageNumber);
+    companion object {
+        private const val VISIBLE_THRESHOLD = 5
     }
 
+
+    fun movie(): LiveData<MovieResponse?>? {
+        return data;
+    }
+
+    private fun loadMovies() {
+        data = movieRepository.loadMovies()
+        val service: ExecutorService = Executors.newSingleThreadExecutor()
+        service.submit(Runnable { // on background thread, obtain a fresh list of users
+
+        })
+
+
+    }
+
+    fun listScrolled() {
+        loadMovies()
+    }
 }
