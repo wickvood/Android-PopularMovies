@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.*
 import dev.ashishrawat.popularmovies.R
 import dev.ashishrawat.popularmovies.adaptor.MoviesAdapter
 import dev.ashishrawat.popularmovies.databinding.ActivityMainBinding
 import dev.ashishrawat.popularmovies.scheduler.PopularMovieWorker
+import dev.ashishrawat.popularmovies.utils.EndlessRecyclerViewScrollListener
 import dev.ashishrawat.popularmovies.viewmodel.MovieViewModel
 import java.util.concurrent.TimeUnit
 
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                     setHasFixedSize(true)
                     layoutManager = GridLayoutManager(this@MainActivity, 2)
                     adapter = MoviesAdapter(it?.results!!)
+                    binding.recyclerView.adapter?.notifyDataSetChanged()
                 }
             }
 
@@ -49,43 +50,20 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupScrollListener() {
+        val layoutManager = GridLayoutManager(this@MainActivity, 2)
+        binding.recyclerView.layoutManager = layoutManager;
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        val scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                Log.e("LoadMore ", "Loading Page");
+                viewModel.listScrolled()
 
-        var previousTotal = 0
-        var loading = true
-        val visibleThreshold = 5
-        var firstVisibleItem: Int
-        var visibleItemCount: Int
-        var totalItemCount: Int
-        val layoutManager: LinearLayoutManager = LinearLayoutManager(this)
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-
-                visibleItemCount = binding.recyclerView.getChildCount();
-                totalItemCount = layoutManager.getItemCount();
-                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false;
-                        previousTotal = totalItemCount;
-                    }
-                }
-                if (!loading && (totalItemCount - visibleItemCount)
-                    <= (firstVisibleItem + visibleThreshold)
-                ) {
-                    // End has been reached
-
-                    Log.i("Yaeye!", "end called");
-
-                    // Do something
-                    viewModel.listScrolled();
-                    loading = true;
-                }
             }
-
-        })
+        }
+        // Adds the scroll listener to RecyclerView
+        binding.recyclerView.addOnScrollListener(scrollListener);
     }
+
 
     private fun setUpWorkManager() {
         val constraints = Constraints.Builder()
@@ -98,5 +76,6 @@ class MainActivity : AppCompatActivity() {
             .build()
         WorkManager.getInstance(this)
             .enqueueUniquePeriodicWork("loadtopmovies", ExistingPeriodicWorkPolicy.KEEP, request)
+
     }
 }
